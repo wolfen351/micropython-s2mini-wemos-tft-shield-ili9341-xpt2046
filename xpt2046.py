@@ -59,8 +59,8 @@ class Touch(object):
 
     def get_touch(self):
         """Take multiple samples to get accurate touch reading."""
-        timeout = 2  # set timeout to 2 seconds
-        confidence = 5
+        timeout = 0.50  # set timeout to 2 seconds
+        confidence = 3
         buff = [[0, 0] for x in range(confidence)]
         buf_length = confidence  # Require a confidence of 5 good samples
         buffptr = 0  # Track current buffer position
