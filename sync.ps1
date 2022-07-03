@@ -31,7 +31,7 @@ for ($i = 0; $i -lt $files.Count; $i++) {
         Write-Output "Sending $f"
 
         # MAKE SURE PATH EXISTS ON DEVICE
-        $bits = $f.ToString().Split('\\')
+        $bits = $f.ToString() -split '\\'
         $dir = ""
         for ($j = 0; $j -lt $bits.Count - 1; $j++) {
             if ($j -gt 0) {
@@ -47,7 +47,7 @@ for ($i = 0; $i -lt $files.Count; $i++) {
         # SEND THE FILE
         $fn = "$($f)"
         $fnn = $fn -replace "\\", "/"
-        ampy --port COM3 -b 921600 put $fnn $fnn
+        ampy --port COM3 put $fnn $fnn
         $sent++
         if (!($?)) {
             Write-Output "Failed."
@@ -64,7 +64,7 @@ if ($sent -gt 0) {
     # record the last time a file was edited
     $MAXEDITTIME = [math]::Round($MAXEDITTIME)
     Write-Output $MAXEDITTIME | Out-File -Encoding ascii .\lastedit.dat
-    ampy --port COM3 -b 921600 put lastedit.dat
+    ampy --port COM3 put lastedit.dat
 } else {
     Write-Output "No changes since last sync."
 }
